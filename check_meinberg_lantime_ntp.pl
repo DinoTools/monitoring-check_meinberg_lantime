@@ -6,7 +6,6 @@ use strict;
 use warnings FATAL => 'all';
 
 use Pod::Text::Termcap;
-use Data::Dumper;
 
 use Net::SNMP;
 
