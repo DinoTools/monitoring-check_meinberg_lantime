@@ -61,32 +61,39 @@ $mp->add_arg(
 
 $mp->add_arg(
     spec     => 'hostname|H=s',
-    help     => '',
+    help     => 'The hostname or IP address of the device.',
     required => 1
 );
 
 $mp->add_arg(
     spec    => 'stratum-warning=s',
-    help    => '',
+    help    => 'Warning threshold for the stratum. (Default is empty and will result in no threshold checks)',
     default => '',
 );
 
 $mp->add_arg(
     spec    => 'stratum-critical=s',
-    help    => '',
+    help    => 'Critical threshold for the stratum. (Default is empty and will result in no threshold checks)',
     default => '',
 );
 
 $mp->add_arg(
     spec    => 'refclock-offset-warning=s',
-    help    => '',
+    help    => 'If use-raw-thresholds is not set this will convert the $threshold to "-$threshold:$threshold" '
+                . 'to check if the offset is in the specified range. (Default is empty and will result in no threshold checks)',
     default => '',
 );
 
 $mp->add_arg(
     spec    => 'refclock-offset-critical=s',
-    help    => '',
+    help    => 'Have a look at --refclock-offset-warning how this value is handled.',
     default => '',
+);
+
+$mp->add_arg(
+    spec    => 'use-raw-thresholds',
+    help    => 'If set the raw threshold values provided will be used.',
+    default => 0,
 );
 
 $mp->getopts;
@@ -173,9 +180,24 @@ sub check
     );
 
     my $refclock_offset = $result->{$mbgLtNgNtpRefclockOffset};
+    my $refclock_offset_warning = $mp->opts->get('refclock-offset-warning');
+    my $refclock_offset_critical = $mp->opts->get('refclock-offset-critical');
+    if (!$mp->opts->get('use-raw-thresholds')) {
+        $refclock_offset_warning = $refclock_offset_warning ne '' ? sprintf(
+            '-%s:%s',
+            $refclock_offset_warning,
+            $refclock_offset_warning
+        ) : undef;
+        $refclock_offset_critical = $refclock_offset_critical ne '' ? sprintf(
+            '-%s:%s',
+            $refclock_offset_critical,
+            $refclock_offset_critical
+        ) : undef;
+    }
+
     my $refclock_offset_threshold = Monitoring::Plugin::Threshold->set_thresholds(
-        warning  => $mp->opts->get('refclock-offset-warning'),
-        critical => $mp->opts->get('refclock-offset-critical'),
+        warning  => $refclock_offset_warning,
+        critical => $refclock_offset_critical,
     );
 
     $mp->add_perfdata(
