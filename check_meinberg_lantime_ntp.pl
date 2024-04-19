@@ -172,7 +172,7 @@ sub check
         'Stratum: ' . $stratum,
     );
 
-    my $refclock_offset = $result->{$mbgLtNgNtpRefclockOffset};
+    my $refclock_offset = abs($result->{$mbgLtNgNtpRefclockOffset});
     my $refclock_offset_threshold = Monitoring::Plugin::Threshold->set_thresholds(
         warning  => $mp->opts->get('refclock-offset-warning'),
         critical => $mp->opts->get('refclock-offset-critical'),
