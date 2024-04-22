@@ -12,6 +12,7 @@ edit_uri: blob/main/docs/
 nav:
     - Home: index.md
     - License: LICENSE.md
+    - Changelog: CHANGELOG.md
     - Issue Tracker: https://github.com/DinoTools/monitoring-check_meinberg_lantime/issues
     - Git Repo: https://github.com/DinoTools/monitoring-check_meinberg_lantime
     - ... | commands/*.md
