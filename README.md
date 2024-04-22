@@ -26,12 +26,16 @@ Requirements
 - libnet-snmp-perl
 
 
-Plugins
--------
+Commands
+--------
 
 ### check_meinberg_lantime_hw.pl
 
-Check hardware components like power supplies, fans and temperatures.
+Check hardware components like power supplies, fans and temperatures. [Commandline documentation for check_meinberg_lantime_hw.pl](https://dinotools.github.io/monitoring-check_meinberg_lantime/commands/check_meinberg_lantime_hw/)
+
+### check_meinberg_lantime_ntp.pl
+
+Check NTP state. [Commandline documentation for check_meinberg_lantime_ntp.pl](https://dinotools.github.io/monitoring-check_meinberg_lantime/commands/check_meinberg_lantime_ntp/)
 
 Installation
 ------------
