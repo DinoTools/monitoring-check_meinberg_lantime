@@ -42,6 +42,11 @@ Examples
 --------
 
 
+Documentation
+-------------
+
+- Documentation: https://dinotools.github.io/monitoring-check_meinberg_lantime
+
 Source
 ------
 
